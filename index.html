@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07131d">
+  <title>ubuntu-service — The Context-Aware Systemd Service Suite</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #e95420;
+      --ubuntu-aubergine: #77216f;
+      --sky: #38bdf8;
+      --green: #34d399;
+      --amber: #f59e0b;
+      --bg: #07131d;
+      --bg2: #0b1926;
+      --card: rgba(15, 23, 42, 0.9);
+      --border: rgba(148, 163, 184, 0.2);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(7, 19, 29, 0.94);
+      border-bottom: 1px solid rgba(233, 84, 32, 0.2);
+      backdrop-filter: blur(12px);
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; color: var(--orange); display: flex; align-items: center; gap: 8px; }
+    .nav-brand span { color: var(--sky); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color .15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 90px 24px 70px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% -20%, rgba(233, 84, 32, 0.25) 0%, transparent 60%),
+        linear-gradient(170deg, #07131d 0%, #0b1926 60%, #050d15 100%);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 20px;
+      background: rgba(233, 84, 32, 0.12); border: 1px solid rgba(233, 84, 32, 0.3);
+      padding: 6px 16px; border-radius: 999px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+    .hero .sub {
+      font-size: 1.15rem; color: var(--muted); max-width: 620px; margin: 0 auto 36px;
+    }
+
+    .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .badge {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px;
+    }
+    .badge-orange { background: rgba(233,84,32,0.15); color: #ff8c5a; border: 1px solid rgba(233,84,32,0.3); }
+    .badge-sky    { background: rgba(56,189,248,0.12); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.3); }
+    .badge-green  { background: rgba(52,211,153,0.12); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
+
+    .terminal-banner {
+      max-width: 680px; margin: 0 auto; background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border); border-radius: 14px; padding: 18px 24px;
+      font-family: "Courier New", Courier, monospace; font-size: 0.95rem; color: #6ee7b7;
+      text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .terminal-banner span.prompt { color: var(--dim); user-select: none; }
+    .terminal-banner span.alias { color: var(--sky); }
+
+    section { padding: 80px 24px; }
+    .container { max-width: 1060px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 10px;
+    }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin-bottom: 14px; }
+    .section-desc { color: var(--muted); font-size: 1.05rem; max-width: 640px; }
+    .divider { width: 48px; height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--orange), var(--sky)); margin: 16px 0 32px; }
+
+    .problem { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media(max-width: 760px){ .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px;
+    }
+    .problem-icon { font-size: 2rem; margin-bottom: 14px; }
+    .problem-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .problem-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
+
+    .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+    @media(max-width: 860px){ .arch-grid { grid-template-columns: 1fr; } }
+    .arch-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 30px 24px;
+      display: flex; flex-direction: column;
+    }
+    .arch-tag {
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 16px; align-self: flex-start;
+    }
+    .arch-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 10px; }
+    .arch-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; flex: 1; }
+    .arch-card pre {
+      background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px; font-family: monospace; font-size: 0.78rem; color: #7dd3fc;
+    }
+
+    .diff-table-wrap { overflow-x: auto; margin-top: 48px; }
+    table.diff { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    table.diff th {
+      padding: 14px 18px; text-align: left;
+      background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid var(--border);
+      font-size: 0.78rem; font-weight: 800; color: var(--muted); letter-spacing: .07em; text-transform: uppercase;
+    }
+    table.diff td { padding: 14px 18px; border-bottom: 1px solid rgba(148, 163, 184, 0.08); vertical-align: top; }
+    table.diff td:first-child { color: var(--orange); font-weight: 700; font-family: monospace; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px; text-align: center; color: var(--dim); font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">⚙️ ubuntu-service <span>Docs</span></div>
+  <div class="nav-links">
+    <a href="#problem">The Problem</a>
+    <a href="#architecture">Three Packages</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#commands">Commands</a>
+    <a href="story.html">Full Story →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">🐧 Ubuntu VPS · Zero Memory · Instant Restart</div>
+    <h1>Stand In Any Folder.<br><em>Never Guess</em> The Service Name.</h1>
+    <p class="sub">
+      You SSH into your VPS, pull fresh code, and freeze: What was the systemd unit name?
+      <code>ubuntu-service</code> inspects your present working directory, matches the exact service, and restarts it with zero friction.
+    </p>
+
+    <div class="hero-badges">
+      <span class="badge badge-orange">🎯 Zero Configuration</span>
+      <span class="badge badge-sky">🔍 Auto CWD Detection</span>
+      <span class="badge badge-green">⚡ Decoupled 3-Tier Suite</span>
+    </div>
+
+    <div class="terminal-banner">
+      <span class="prompt">$ </span>cd /root/KeshavSoft/appointment-notifier<br>
+      <span class="prompt">$ </span><span class="alias">us restart</span><br>
+      <span style="color: #94a3b8;">✔ Matched unit: appointment.keshavsoft.com.service<br>
+      ✔ Service restarted successfully (Port: 3000)</span>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="section-label">The Friction</div>
+    <h2 class="section-title">The "Post-Git-Pull Paralysis"</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Managing 20+ Node services on an Ubuntu VPS usually involves unnecessary mental overhead.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">❓</div>
+        <h3>Guessing Service Names</h3>
+        <p>Is it <code>appointment.service</code>? <code>appointment.keshavsoft.com.service</code>? Or <code>node-appointment.service</code>? You waste time running <code>systemctl list-units</code>.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚠️</div>
+        <h3>Silent Restart Failures</h3>
+        <p>You run <code>systemctl restart</code>, but don't know if the port crashed immediately after or if systemd failed on multiple ExecStart commands.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🧱</div>
+        <h3>Monolithic Code Bloat</h3>
+        <p>Detection, INI parsing, systemctl command execution, and port identification crammed into one fragile file breaks easily.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">Clean Architecture</div>
+    <h2 class="section-title">Decoupled Into Three Focused Packages</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Instead of one bloated package doing everything, the suite is cleanly separated by responsibility.</p>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <span class="arch-tag" style="background:rgba(56,189,248,0.15); color:#7dd3fc; border:1px solid rgba(56,189,248,0.3);">
+          📦 Detection &amp; Reading
+        </span>
+        <h3>ubuntu-service-detect</h3>
+        <p>
+          Pure read-only query module. Scans <code>/etc/systemd/system/</code>, matches <code>process.cwd()</code> against <code>WorkingDirectory</code>, <code>ExecStart</code>, or package name, and safely extracts ports.
+        </p>
+        <pre>findServiceForDirectory(cwd)</pre>
+      </div>
+
+      <div class="arch-card">
+        <span class="arch-tag" style="background:rgba(233,84,32,0.15); color:#ff8c5a; border:1px solid rgba(233,84,32,0.3);">
+          ⚡ Execution &amp; Lifecycle
+        </span>
+        <h3>ubuntu-service-restart</h3>
+        <p>
+          Dedicated execution engine. Safe <code>systemctl restart</code> with daemon-reload support, live status polling, and journalctl log extraction.
+        </p>
+        <pre>restartService(unitName)</pre>
+      </div>
+
+      <div class="arch-card">
+        <span class="arch-tag" style="background:rgba(52,211,153,0.15); color:#6ee7b7; border:1px solid rgba(52,211,153,0.3);">
+          🎮 User CLI Orchestrator
+        </span>
+        <h3>ubuntu-service</h3>
+        <p>
+          Ultra-lightweight CLI (<code>us</code>). Imports both packages, formats clean tables, and provides instant terminal feedback.
+        </p>
+        <pre>us status | us restart | us logs</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="commands">
+  <div class="container">
+    <div class="section-label">CLI Reference</div>
+    <h2 class="section-title">Everyday Commands</h2>
+    <div class="divider"></div>
+
+    <div class="diff-table-wrap">
+      <table class="diff">
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Short Alias</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>npx ubuntu-service</td>
+            <td>us</td>
+            <td>Inspects the service running in the current directory (Status, Port, ExecStart)</td>
+          </tr>
+          <tr>
+            <td>npx ubuntu-service restart</td>
+            <td>us restart</td>
+            <td>Safely restarts only the service mapped to the current folder</td>
+          </tr>
+          <tr>
+            <td>npx ubuntu-service logs -n 50</td>
+            <td>us logs -n 50</td>
+            <td>Streams the last 50 journalctl lines for this service</td>
+          </tr>
+          <tr>
+            <td>npx ubuntu-service port</td>
+            <td>us port</td>
+            <td>Outputs only the assigned internal port number (e.g. 3000)</td>
+          </tr>
+          <tr>
+            <td>npx ubuntu-service name</td>
+            <td>us name</td>
+            <td>Outputs only the systemd unit name (e.g. appointment.keshavsoft.com.service)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>ubuntu-service Suite</strong> · Pure Node.js ESM · Standard Linux Systemd · Built by KeshavSoft
+  <br><br>
+  <a href="story.html" style="color:var(--orange); text-decoration:none;">Read the full architectural evolution story →</a>
+</footer>
+
+</body>
+</html>
