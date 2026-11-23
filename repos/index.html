@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#07131d">
-  <title>The ubuntu-service Family — Complete Repository & Package Ecosystem</title>
+  <title>The ubuntu-service Family — Single-Service Management Ecosystem</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -20,7 +20,6 @@
       --amber-soft: rgba(245, 158, 11, 0.15);
       --bg: #07131d;
       --bg2: #0b1926;
-      --bg3: #0f2234;
       --card: rgba(15, 23, 42, 0.92);
       --border: rgba(148, 163, 184, 0.18);
       --border-bright: rgba(148, 163, 184, 0.35);
@@ -111,10 +110,17 @@
     .story-banner {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(11, 25, 38, 0.95));
       border: 1px solid var(--border-bright); border-radius: 20px; padding: 32px;
-      margin-bottom: 60px; box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      margin-bottom: 40px; box-shadow: 0 12px 36px rgba(0,0,0,0.3);
     }
-    .story-banner h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: #fff; }
-    .story-banner p { color: var(--muted); font-size: 0.98rem; line-height: 1.65; margin-bottom: 16px; }
+    .story-banner h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; color: #fff; }
+    .story-banner p { color: var(--muted); font-size: 0.96rem; line-height: 1.65; margin-bottom: 14px; }
+
+    .boundary-callout {
+      background: rgba(233, 84, 32, 0.08); border-left: 4px solid var(--orange);
+      padding: 20px 24px; border-radius: 0 14px 14px 0; margin-bottom: 50px;
+    }
+    .boundary-callout h4 { color: #ff8c5a; font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .boundary-callout p { color: var(--text); font-size: 0.92rem; line-height: 1.6; margin: 0; }
 
     .family-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -142,7 +148,6 @@
     .badge-sky    { background: var(--sky-soft); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
     .badge-green  { background: var(--green-soft); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.35); }
     .badge-purple { background: var(--purple-soft); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
-    .badge-amber  { background: var(--amber-soft); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.35); }
     .badge-version { background: rgba(255, 255, 255, 0.08); color: #e2e8f0; font-family: monospace; font-size: 0.75rem; }
 
     .repo-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; color: #fff; }
@@ -227,24 +232,24 @@
 
 <div class="hero">
   <div class="container">
-    <div class="hero-eyebrow">🌐 The KeshavSoft Ecosystem · Ubuntu VPS Service Suite</div>
-    <h1>The Complete <span>Repository Family</span></h1>
+    <div class="hero-eyebrow">⚙️ Exclusive Suite · Ubuntu VPS Single-Service Management</div>
+    <h1>The <span>ubuntu-service</span> Family</h1>
     <p class="sub">
-      A coordinated family of decoupled tools built for zero-friction VPS service management, port diagnostics, safe systemd lifecycle execution, and fleet audits.
+      A dedicated family of decoupled packages built exclusively for atomic, folder-contextual single-service operations on Ubuntu VPS servers.
     </p>
 
     <div class="stats-row">
       <div class="stat-pill">
-        <strong>8</strong> <span>Repositories</span>
+        <strong>1 Target</strong> <span>Atomic Single Service</span>
       </div>
       <div class="stat-pill">
-        <strong>7</strong> <span>Published npm Packages</span>
+        <strong>0 Memory</strong> <span>No Standing Daemons</span>
       </div>
       <div class="stat-pill">
-        <strong>100%</strong> <span>Native Tests &amp; Pure ESM</span>
+        <strong>Pure ESM</strong> <span>100% Native Node Tests</span>
       </div>
       <div class="stat-pill">
-        <strong>0</strong> <span>Runtime Memory Overhead</span>
+        <strong>Decoupled</strong> <span>Clean Read &amp; Write Separation</span>
       </div>
     </div>
   </div>
@@ -252,20 +257,30 @@
 
 <section>
   <div class="container">
-    <div class="story-banner">
-      <h3>The Architecture Story Behind the Family</h3>
+
+    <div class="boundary-callout">
+      <h4>🎯 Explicit Family Scope: Singular (ubuntu-service), NOT Plural</h4>
       <p>
-        On an Ubuntu VPS running multiple Node.js applications, microservices, and reverse proxies, two conflicting operational modes exist: <strong>Macro Fleet Visibility</strong> (what is the state of everything on the machine?) and <strong>Atomic Contextual Action</strong> (I just ran <code>git pull</code> in this folder—restart ONLY this service).
-      </p>
-      <p>
-        Rather than building a monolithic codebase that tries to do everything and breaks under systemd quirks, the suite is divided into specialized, single-responsibility repositories that communicate cleanly via programmatic APIs and CLI entrypoints.
+        <strong>ubuntu-service</strong> is built strictly around the single-service paradigm: you stand inside an application directory after <code>git pull</code>, and you need to identify, inspect, and restart <em>that single service</em>.
+        <br><br>
+        This family does <strong>not</strong> touch or conflate with whole-machine fleet inventory scanners (like <code>ubuntu-services</code>). Fleet management and server-wide folder auditing is an entirely separate operational domain with its own dedicated architecture.
       </p>
     </div>
 
-    <div class="section-label">All Repositories</div>
-    <h2 class="section-title">The 8 Family Members</h2>
+    <div class="story-banner">
+      <h3>The Decoupled Triad</h3>
+      <p>
+        The <code>ubuntu-service</code> family originated from a monolithic script that handled everything—parsing systemd INI files, matching directories, executing <code>systemctl restart</code>, polling status, and streaming journalctl logs.
+      </p>
+      <p>
+        To prevent silent restart failures and allow developers to embed detection or restart capabilities into other tooling without side-effects, the single-service lifecycle was decoupled into three focused repositories plus this dedicated documentation hub.
+      </p>
+    </div>
+
+    <div class="section-label">Family Repositories</div>
+    <h2 class="section-title">The ubuntu-service Family Members</h2>
     <div class="divider"></div>
-    <p class="section-desc">Each repository has an explicit contract, its own test suite, direct npm distribution, and dedicated documentation.</p>
+    <p class="section-desc">Every package below operates strictly on the single-service atomic level.</p>
 
     <div class="family-grid">
 
@@ -307,7 +322,7 @@
           </div>
         </div>
         <h3>ubuntu-service-detect</h3>
-        <div class="role">Pure Read-Only Detection Engine</div>
+        <div class="role">Pure Read-Only Single-Service Matcher</div>
         <p>
           Scans <code>/etc/systemd/system/</code>, matches <code>process.cwd()</code> against <code>WorkingDirectory</code>, <code>ExecStart</code>, or package name with weighted confidence scoring (100, 80, 70, 50). Zero side-effects.
         </p>
@@ -336,7 +351,7 @@
           </div>
         </div>
         <h3>ubuntu-service-restart</h3>
-        <div class="role">Systemctl Lifecycle &amp; Log Streaming</div>
+        <div class="role">Single-Service Lifecycle &amp; Log Streaming</div>
         <p>
           Dedicated execution engine for Linux systemd services. Safely executes <code>systemctl restart</code> with automatic <code>daemon-reload</code>, post-restart health verification, and journalctl log extraction.
         </p>
@@ -356,28 +371,28 @@
         </div>
       </div>
 
-      <!-- 4. ubuntu-services (Plural) -->
+      <!-- 4. ubuntu-service-docs -->
       <div class="repo-card">
         <div class="card-top">
           <div class="card-badges">
-            <span class="badge badge-green">📊 Fleet Inventory</span>
-            <span class="badge badge-version">v1.0.0</span>
+            <span class="badge badge-green">🌐 Documentation Portal</span>
+            <span class="badge badge-version">Active</span>
           </div>
         </div>
-        <h3>ubuntu-services</h3>
-        <div class="role">Server-Wide Systemd Inventory &amp; Health Auditor</div>
+        <h3>ubuntu-service-docs</h3>
+        <div class="role">Dedicated Documentation Hub for ubuntu-service</div>
         <p>
-          The Plural companion to <code>ubuntu-service</code>. Discovers, lists, and audits <strong>all</strong> registered Ubuntu systemd services, verifying physical working directories on disk and reporting broken paths.
+          The central documentation website, architectural evolution story, and showcase portal hosting dedicated sub-pages for every member of the <code>ubuntu-service</code> family.
         </p>
         <div class="cmd-box">
-          <code><span class="prompt">$</span>npx ubuntu-services</code>
+          <code><span class="prompt">$</span>open https://keshavsoft.github.io/ubuntu-service-docs/</code>
         </div>
         <div class="card-actions">
-          <a href="https://github.com/keshavsoft/ubuntu-services" target="_blank" class="btn-action btn-github">
+          <a href="https://github.com/keshavsoft/ubuntu-service-docs" target="_blank" class="btn-action btn-github">
             GitHub Repo ↗
           </a>
-          <a href="https://www.npmjs.com/package/ubuntu-services" target="_blank" class="btn-action btn-npm">
-            npm Package ↗
+          <a href="../index.html" class="btn-action btn-docs">
+            Docs Hub →
           </a>
         </div>
       </div>
@@ -386,14 +401,14 @@
       <div class="repo-card">
         <div class="card-top">
           <div class="card-badges">
-            <span class="badge badge-purple">🔌 Port Diagnostics</span>
+            <span class="badge badge-purple">🔌 Port Reverse Lookup</span>
             <span class="badge badge-version">v2.0.0</span>
           </div>
         </div>
         <h3>ubuntu-service-port</h3>
-        <div class="role">Port Reverse-Lookup &amp; Socket Inspector</div>
+        <div class="role">Single-Service Port &amp; Socket Inspector</div>
         <p>
-          Inspect and reverse-lookup Ubuntu systemd services, live socket processes, and cron jobs by port number. Instantly discovers which unit or PID owns a port like 3000, 4000, or 8080.
+          Inspect and reverse-lookup which single Ubuntu systemd service or live process owns a specific port (e.g. 3000, 4000). Resolves socket clashes before service restart.
         </p>
         <div class="cmd-box">
           <code><span class="prompt">$</span>npx ubuntu-service-port 3000</code>
@@ -419,7 +434,7 @@
         <h3>ubuntu-service-cli</h3>
         <div class="role">VPS Domain Convention Service Tool</div>
         <p>
-          Inspect, check, and manage Ubuntu systemd services adhering to KeshavSoft VPS domain conventions (e.g. <code>subdomain.domain.com.service</code>).
+          Inspect and manage a single Ubuntu systemd service matching KeshavSoft VPS domain conventions (e.g. <code>subdomain.domain.com.service</code>).
         </p>
         <div class="cmd-box">
           <code><span class="prompt">$</span>npx ubuntu-service-cli</code>
@@ -430,58 +445,6 @@
           </a>
           <a href="https://www.npmjs.com/package/ubuntu-service-cli" target="_blank" class="btn-action btn-npm">
             npm Package ↗
-          </a>
-        </div>
-      </div>
-
-      <!-- 7. ubuntu-knowledge -->
-      <div class="repo-card">
-        <div class="card-top">
-          <div class="card-badges">
-            <span class="badge badge-amber">📚 Knowledge Base</span>
-            <span class="badge badge-version">v1.0.0</span>
-          </div>
-        </div>
-        <h3>ubuntu-knowledge</h3>
-        <div class="role">Master Handbook &amp; Systemd Best Practices</div>
-        <p>
-          The master handbook and knowledge base for Ubuntu VPS backend services: systemd daemon templates, port allocation strategies, environment configuration, and Node.js hosting patterns.
-        </p>
-        <div class="cmd-box">
-          <code><span class="prompt">$</span>npm i ubuntu-knowledge</code>
-        </div>
-        <div class="card-actions">
-          <a href="https://github.com/keshavsoft/ubuntu-knowledge" target="_blank" class="btn-action btn-github">
-            GitHub Repo ↗
-          </a>
-          <a href="https://www.npmjs.com/package/ubuntu-knowledge" target="_blank" class="btn-action btn-npm">
-            npm Package ↗
-          </a>
-        </div>
-      </div>
-
-      <!-- 8. ubuntu-service-docs -->
-      <div class="repo-card">
-        <div class="card-top">
-          <div class="card-badges">
-            <span class="badge badge-green">🌐 Documentation Portal</span>
-            <span class="badge badge-version">Active</span>
-          </div>
-        </div>
-        <h3>ubuntu-service-docs</h3>
-        <div class="role">GitHub Pages Interactive Showcase</div>
-        <p>
-          The central documentation website, simulator, architectural story breakdown, and ecosystem hub hosting pages for every package in the family.
-        </p>
-        <div class="cmd-box">
-          <code><span class="prompt">$</span>open https://keshavsoft.github.io/ubuntu-service-docs/</code>
-        </div>
-        <div class="card-actions">
-          <a href="https://github.com/keshavsoft/ubuntu-service-docs" target="_blank" class="btn-action btn-github">
-            GitHub Repo ↗
-          </a>
-          <a href="../index.html" class="btn-action btn-docs">
-            Docs Hub →
           </a>
         </div>
       </div>
@@ -527,7 +490,7 @@
 <section>
   <div class="container">
     <div class="section-label">Master Reference</div>
-    <h2 class="section-title">Ecosystem Matrix</h2>
+    <h2 class="section-title">The ubuntu-service Family Matrix</h2>
     <div class="divider"></div>
 
     <div class="matrix-table-wrap">
@@ -568,12 +531,12 @@
             <td><code>restartService()</code></td>
           </tr>
           <tr>
-            <td>ubuntu-services</td>
-            <td><span class="badge badge-green">Fleet</span></td>
-            <td>1.0.0</td>
-            <td><a href="https://www.npmjs.com/package/ubuntu-services" target="_blank" style="color:#ff8584; text-decoration:none;">npm/ubuntu-services ↗</a></td>
-            <td><a href="https://github.com/keshavsoft/ubuntu-services" target="_blank" style="color:var(--sky); text-decoration:none;">github/ubuntu-services ↗</a></td>
-            <td><code>npx ubuntu-services</code></td>
+            <td>ubuntu-service-docs</td>
+            <td><span class="badge badge-green">Portal</span></td>
+            <td>Live</td>
+            <td><em>Documentation Portal</em></td>
+            <td><a href="https://github.com/keshavsoft/ubuntu-service-docs" target="_blank" style="color:var(--sky); text-decoration:none;">github/ubuntu-service-docs ↗</a></td>
+            <td><a href="https://keshavsoft.github.io/ubuntu-service-docs/" target="_blank" style="color:var(--orange); text-decoration:none;">Live Pages Site ↗</a></td>
           </tr>
           <tr>
             <td>ubuntu-service-port</td>
@@ -591,22 +554,6 @@
             <td><a href="https://github.com/keshavsoft/ubuntu-service-cli" target="_blank" style="color:var(--sky); text-decoration:none;">github/ubuntu-service-cli ↗</a></td>
             <td><code>npx ubuntu-service-cli</code></td>
           </tr>
-          <tr>
-            <td>ubuntu-knowledge</td>
-            <td><span class="badge badge-amber">Handbook</span></td>
-            <td>1.0.0</td>
-            <td><a href="https://www.npmjs.com/package/ubuntu-knowledge" target="_blank" style="color:#ff8584; text-decoration:none;">npm/ubuntu-knowledge ↗</a></td>
-            <td><a href="https://github.com/keshavsoft/ubuntu-knowledge" target="_blank" style="color:var(--sky); text-decoration:none;">github/ubuntu-knowledge ↗</a></td>
-            <td><code>npm i ubuntu-knowledge</code></td>
-          </tr>
-          <tr>
-            <td>ubuntu-service-docs</td>
-            <td><span class="badge badge-green">Portal</span></td>
-            <td>Live</td>
-            <td><em>Documentation Portal</em></td>
-            <td><a href="https://github.com/keshavsoft/ubuntu-service-docs" target="_blank" style="color:var(--sky); text-decoration:none;">github/ubuntu-service-docs ↗</a></td>
-            <td><a href="https://keshavsoft.github.io/ubuntu-service-docs/" target="_blank" style="color:var(--orange); text-decoration:none;">Live Pages Site ↗</a></td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -614,7 +561,7 @@
 </section>
 
 <footer>
-  <strong>KeshavSoft Ubuntu Suite</strong> · Pure Node.js ESM · Standard Linux Systemd Architecture
+  <strong>ubuntu-service Family</strong> · Pure Node.js ESM · Standard Linux Systemd Architecture · Built by KeshavSoft
   <br><br>
   <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
     <a href="../index.html">Docs Home</a>
