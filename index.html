@@ -148,8 +148,10 @@
   <div class="nav-brand">⚙️ ubuntu-service <span>Docs</span></div>
   <div class="nav-links">
     <a href="#problem">The Problem</a>
-    <a href="#architecture">Three Packages</a>
-    <a href="#how-it-works">How It Works</a>
+    <a href="#architecture">Suite Packages</a>
+    <a href="detect/">Detect</a>
+    <a href="restart/">Restart</a>
+    <a href="service/">CLI (us)</a>
     <a href="#commands">Commands</a>
     <a href="story.html">Full Story →</a>
   </div>
@@ -223,6 +225,13 @@
           Pure read-only query module. Scans <code>/etc/systemd/system/</code>, matches <code>process.cwd()</code> against <code>WorkingDirectory</code>, <code>ExecStart</code>, or package name, and safely extracts ports.
         </p>
         <pre>findServiceForDirectory(cwd)</pre>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="detect/" style="font-size:0.82rem; font-weight:700; color:#38bdf8; text-decoration:none;">Dedicated Docs →</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://www.npmjs.com/package/ubuntu-service-detect" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">npm package ↗</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://github.com/keshavsoft/ubuntu-service-detect" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">GitHub ↗</a>
+        </div>
       </div>
 
       <div class="arch-card">
@@ -234,6 +243,13 @@
           Dedicated execution engine. Safe <code>systemctl restart</code> with daemon-reload support, live status polling, and journalctl log extraction.
         </p>
         <pre>restartService(unitName)</pre>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="restart/" style="font-size:0.82rem; font-weight:700; color:#ff8c5a; text-decoration:none;">Dedicated Docs →</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://www.npmjs.com/package/ubuntu-service-restart" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">npm package ↗</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://github.com/keshavsoft/ubuntu-service-restart" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">GitHub ↗</a>
+        </div>
       </div>
 
       <div class="arch-card">
@@ -245,6 +261,13 @@
           Ultra-lightweight CLI (<code>us</code>). Imports both packages, formats clean tables, and provides instant terminal feedback.
         </p>
         <pre>us status | us restart | us logs</pre>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="service/" style="font-size:0.82rem; font-weight:700; color:#34d399; text-decoration:none;">Dedicated Docs →</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://www.npmjs.com/package/ubuntu-service" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">npm package ↗</a>
+          <span style="color:var(--dim);">|</span>
+          <a href="https://github.com/keshavsoft/ubuntu-service" target="_blank" style="font-size:0.82rem; color:var(--muted); text-decoration:none;">GitHub ↗</a>
+        </div>
       </div>
     </div>
   </div>
